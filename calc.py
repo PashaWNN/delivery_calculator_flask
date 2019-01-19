@@ -13,6 +13,8 @@ class DelLinCalculator:
         return kladr.strip('0') + '0' * (25 - len(kladr.strip('0')))
 
     def calculate(self, derivalPoint: str, arrivalPoint: str, sizedVolume: float, sizedWeight: float, **kwargs):
+        if sizedWeight > 20000:
+            raise ValueError('Вес не должен превышать 20.000 кг')
         derivalPoint = self._normalize_kladr(derivalPoint)
         arrivalPoint = self._normalize_kladr(arrivalPoint)
         payload = {

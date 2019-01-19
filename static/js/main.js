@@ -14,6 +14,7 @@ let results = $('#results');
 let loading = $('#loading');
 let r_hide_at_begin = $('.results');
 let r_from = $('#r_from');
+let error = $('#r_error');
 let r_to = $('#r_to');
 let r_price = $('#r_price');
 let r_price_title = $('#r_price_title');
@@ -71,29 +72,34 @@ $("#submit").click(function(e) {
                     'volume': volume,
                 },),
                 success: function (data) {
+
                     loading.hide();
                     console.log(data);
-                    if (data.derival > 0 || data.arrival>0) {
-                        r_intercity.show();
-                        r_intercity_price.text(data.intercity);
+                    if (data.error) {
+                        error.text(data.error);
+                        error.show()
                     } else {
-                        r_intercity.hide();
+                        if (data.derival > 0 || data.arrival > 0) {
+                            r_intercity.show();
+                            r_intercity_price.text(data.intercity);
+                        } else {
+                            r_intercity.hide();
+                        }
+                        if (data.arrival > 0) {
+                            r_arrival.show();
+                            r_arrival_price.text(data.arrival);
+                        } else {
+                            r_arrival.hide();
+                        }
+                        if (data.derival > 0) {
+                            r_derival.show();
+                            r_derival_price.text(data.derival);
+                        } else {
+                            r_derival.hide();
+                        }
+                        r_price.text(data.total);
+                        r_price_title.show()
                     }
-                    if (data.arrival > 0) {
-                        r_arrival.show();
-                        r_arrival_price.text(data.arrival);
-                    } else {
-                        r_arrival.hide();
-                    }
-                    if (data.derival > 0) {
-                        r_derival.show();
-                        r_derival_price.text(data.derival);
-                    } else {
-                        r_derival.hide();
-                    }
-                    r_price.text(data.total);
-                    r_price_title.show()
-
                 }
             });
     }

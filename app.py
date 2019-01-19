@@ -18,12 +18,15 @@ def index():
 @app.route('/calculate/', methods=['POST'])
 def calc():
     j = request.get_json()
-    result = dellin.calculate(derivalPoint=j['from_kladr'],
-                              arrivalPoint=j['to_kladr'],
-                              arrivalDoor=j['arrival'],
-                              derivalDoor=j['derival'],
-                              sizedVolume=1.0,
-                              sizedWeight=j['weight'])
+    try:
+        result = dellin.calculate(derivalPoint=j['from_kladr'],
+                                  arrivalPoint=j['to_kladr'],
+                                  arrivalDoor=j['arrival'],
+                                  derivalDoor=j['derival'],
+                                  sizedVolume=1.0,
+                                  sizedWeight=j['weight'])
+    except ValueError as e:
+        return jsonify({'error': str(e)})
     return jsonify({
         'total': result.total_price,
         'derival': result.derival_price,
