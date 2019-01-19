@@ -17,6 +17,19 @@ input, button {
     box-shadow: rgba(0, 0, 0, 0.075) 1px 1px 5px;
 }
 
+.footer {
+    color: #c4c4c4;
+}
+
+a .footer {
+    color: #666666;
+}
+
+a:visited .footer {
+    color: #555555;
+}
+
+
 .win h1 {
     margin: 0;
     padding: 0;

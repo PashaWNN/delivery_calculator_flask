@@ -56,8 +56,9 @@ $("#submit").click(function(e) {
         r_to.text(to.val());
 
         $([document.documentElement, document.body]).animate({
-                    scrollTop: results.offset().top
-                    }, 2000);
+            scrollTop: results.offset().top
+        }, 2000);
+
         $.ajax({
                 url: '/calculate/',
                 contentType: "application/json; charset=utf-8",
