@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Расчёт стоимости доставки</title>
+
+        <link href="/static/css/jquery.kladr.min.css" rel="stylesheet">
+        <link href="/static/css/simple.css" rel="stylesheet">
+    </head>
+    <body>
+        <form id="calculateForm">
+            <div class="win">
+                <h1>Расчёт стоимости доставки</h1>
+                <p>Откуда:</p>
+                <div class="field">
+                    <input name="city" class="city" id="from" type="text" required placeholder="Город" autocomplete="on">
+                </div>
+                <div class="field">
+                    <input name="derival" id="derival" type="checkbox">
+                    <label for="derival">Забрать груз у отправителя</label>
+                </div>
+                <p>Куда:</p>
+                <div class="field">
+                    <input name="city" id="to" class="city" type="text" required placeholder="Город" autocomplete="on">
+                </div>
+                <div class="field">
+                    <input name="arrival" id="arrival" type="checkbox">
+                    <label for="arrival">Доставить груз до дверей</label>
+                </div>
+                <p>Вес, кг:</p>
+                <div class="field">
+                    <input name="weight" id="weight" min="0" required type="number" value="" step="any">
+                </div>
+                <p>Объём, м³:</p>
+                <div class="field">
+                    <input name="volume" id="volume" min="0" required type="number" value="" step="any">
+                </div>
+                <div class="field">
+                    <input type="submit" id="submit" value="Рассчитать"/>
+                </div>
+            </div>
+        </form>
+        <div class="win" id="results" hidden>
+            <h1>Стоимость доставки <em id="r_from"></em>-<em id="r_to"></em></h1>
+            <p>Полная стоимость: <em id="r_price"></em></p>
+            <p id="r_derival" hidden>Стоимость забора от адреса: <em id="r_derival_price"></em></p>
+            <p id="r_intercity" hidden>Стоимость междугородней перевозки: <em id="r_intercity_price"></em></p>
+            <p id="r_arrival" hidden>Стоимость доставки до адреса: <em id="r_arrival_price"></em></p>
+        </div>
+            <script src="/static/js/lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+            <script src="/static/js/jquery.kladr.min.js" type="text/javascript"></script>
+            <script src="/static/js/main.js" type="text/javascript"></script>
+            <script src="/static/js/jquery.validate.min.js" type="text/javascript"></script>
+    </body>
+</html>
