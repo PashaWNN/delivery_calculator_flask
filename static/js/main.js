@@ -11,9 +11,12 @@ let der = $('#derival');
 let arr = $('#arrival');
 
 let results = $('#results');
+let loading = $('#loading');
+let r_hide_at_begin = $('.results');
 let r_from = $('#r_from');
 let r_to = $('#r_to');
 let r_price = $('#r_price');
+let r_price_title = $('#r_price_title');
 let r_intercity = $('#r_intercity');
 let r_intercity_price = $('#r_intercity_price');
 let r_derival = $('#r_derival');
@@ -45,7 +48,15 @@ $("#submit").click(function(e) {
         let arrival = arr.prop('checked');
         let weight = parseFloat($('#weight').val());
         let volume = parseFloat($('#volume').val());
+        results.show();
+        r_hide_at_begin.hide();
+        loading.show();
+        r_from.text(from.val());
+        r_to.text(to.val());
 
+        $([document.documentElement, document.body]).animate({
+                    scrollTop: results.offset().top
+                    }, 2000);
         $.ajax({
                 url: '/calculate/',
                 contentType: "application/json; charset=utf-8",
@@ -60,32 +71,28 @@ $("#submit").click(function(e) {
                     'volume': volume,
                 },),
                 success: function (data) {
+                    loading.hide();
                     console.log(data);
                     if (data.derival > 0 || data.arrival>0) {
-                        r_intercity.removeAttr('hidden');
+                        r_intercity.show();
                         r_intercity_price.text(data.intercity);
                     } else {
-                        r_intercity.attr('hidden', '');
+                        r_intercity.hide();
                     }
                     if (data.arrival > 0) {
-                        r_arrival.removeAttr('hidden');
+                        r_arrival.show();
                         r_arrival_price.text(data.arrival);
                     } else {
-                        r_arrival.attr('hidden', '');
+                        r_arrival.hide();
                     }
                     if (data.derival > 0) {
-                        r_derival.removeAttr('hidden');
+                        r_derival.show();
                         r_derival_price.text(data.derival);
                     } else {
-                        r_derival.attr('hidden', '');
+                        r_derival.hide();
                     }
                     r_price.text(data.total);
-                    r_from.text(from.val());
-                    r_to.text(to.val());
-                    results.removeAttr('hidden');
-                    $([document.documentElement, document.body]).animate({
-                    scrollTop: results.offset().top
-                    }, 2000);
+                    r_price_title.show()
 
                 }
             });
